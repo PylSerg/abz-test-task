@@ -13,6 +13,7 @@ export default function Heder() {
 					<button className="header__button" type="button">
 						Users
 					</button>
+
 					<button className="header__button" type="button">
 						Sing up
 					</button>
