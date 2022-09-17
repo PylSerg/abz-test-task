@@ -1,10 +1,5 @@
 @import "./variables";
 
-@font-face {
-	font-family: "Nunito";
-	src: url("../fonts/Nunito.ttf");
-}
-
 body {
 	font-family: "Nunito";
 	font-weight: 400;
@@ -23,3 +18,5 @@ h1 {
 @import "./components/hero";
 @import "./components/GET-block";
 @import "./components/POST-block";
+
+@import "./fonts";
