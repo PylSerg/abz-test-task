@@ -1,11 +1,8 @@
 import React from "react";
-import heroBackground from "../assets/background-image.jpg";
 
 export default function Hero() {
 	return (
-		<div>
-			<img src={heroBackground} alt="Background" />
-
+		<div className="hero">
 			<h1>Test assignment for front-end developer</h1>
 
 			<p>
