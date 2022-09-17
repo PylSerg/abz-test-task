@@ -10,11 +10,11 @@ export default function Heder() {
 				<img className="header__logo" src={logo} alt="Logo" />
 
 				<div className="header__buttons-block">
-					<button className="header__button" type="button">
+					<button className="button" type="button">
 						Users
 					</button>
 
-					<button className="header__button" type="button">
+					<button className="button" type="button">
 						Sing up
 					</button>
 				</div>
