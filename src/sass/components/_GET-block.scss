@@ -1,0 +1,29 @@
+.get-block {
+	display: block;
+
+	width: 100%;
+
+	margin-top: 140px;
+	padding: 0 16px;
+}
+
+.get-block__users {
+	width: calc(100% - 32px);
+
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.get-block__user {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin: 0;
+	padding: 20px;
+
+	background-color: #fff;
+}

@@ -11,6 +11,8 @@ body {
 
 	margin: 0;
 	padding: 0;
+
+	min-width: 260px;
 }
 
 // Typography
@@ -18,12 +20,15 @@ h1 {
 	font-weight: 400;
 	font-size: 40px;
 	line-height: 40px;
+	text-align: center;
 
 	margin: 0;
 	padding: 0;
 }
 
 p {
+	display: block;
+
 	margin: 0;
 	padding: 0;
 }
