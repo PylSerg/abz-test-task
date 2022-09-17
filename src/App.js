@@ -10,9 +10,6 @@ function App() {
 	return (
 		<>
 			<Header />
-			<Hero />
-			<GETRequestBlock />
-			<POSTRequestBlock />
 		</>
 	);
 }
