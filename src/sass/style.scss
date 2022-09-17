@@ -15,8 +15,17 @@ body {
 
 // Typography
 h1 {
+	font-weight: 400;
 	font-size: 40px;
 	line-height: 40px;
+
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	margin: 0;
+	padding: 0;
 }
 
 // Buttons
@@ -33,10 +42,6 @@ h1 {
 	border-radius: 80px;
 
 	cursor: pointer;
-}
-
-.button:not(:first-child) {
-	margin-left: 10px;
 }
 
 .button:hover,

@@ -1,0 +1,31 @@
+.hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	height: 500px;
+
+	padding: 0 16px;
+
+	color: #fff;
+
+	background-image: url("../../assets/hero-360.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.hero__title {
+	margin-top: 40px;
+
+	text-align: center;
+}
+
+.hero__subtitle {
+	margin-top: 21px;
+
+	text-align: center;
+}
+
+.hero__button {
+	margin-top: 32px;
+}
