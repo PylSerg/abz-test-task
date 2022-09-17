@@ -1,0 +1,34 @@
+.header {
+	display: flex;
+	flex-direction: column;
+}
+
+.header__rectangle {
+	width: 100%;
+	height: 60px;
+
+	background-color: #000;
+}
+
+.header__main {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	height: 60px;
+
+	padding: 0 16px;
+
+	background-color: #fff;
+}
+
+.header__logo {
+	display: block;
+
+	width: 104px;
+	height: 26px;
+}
+
+.header__buttons-block {
+	display: flex;
+}

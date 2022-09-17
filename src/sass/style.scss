@@ -8,16 +8,46 @@ body {
 	line-height: 26px;
 
 	background-color: $background-color;
+
+	margin: 0;
 }
 
+// Typography
 h1 {
 	font-size: 40px;
 	line-height: 40px;
 }
 
+// Buttons
+.button {
+	width: 100px;
+	height: 34px;
+
+	font-size: 16px;
+	line-height: 26px;
+
+	background-color: $primary-color;
+
+	border: none;
+	border-radius: 80px;
+
+	cursor: pointer;
+}
+
+.button:not(:first-child) {
+	margin-left: 10px;
+}
+
+.button:hover,
+.button:focus {
+	background-color: $button-color-hover;
+}
+
+//Import components styles
 @import "./components/header";
 @import "./components/hero";
 @import "./components/GET-block";
 @import "./components/POST-block";
 
+// Import fonts
 @import "./fonts";
