@@ -5,14 +5,14 @@ import GETRequestBlock from "./components/GETRequestBlock";
 import POSTRequestBlock from "./components/POSTRequestBlock";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Hero />
-      <GETRequestBlock />
-      <POSTRequestBlock />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<Hero />
+			<GETRequestBlock />
+			<POSTRequestBlock />
+		</>
+	);
 }
 
 export default App;
