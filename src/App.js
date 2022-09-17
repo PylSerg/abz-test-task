@@ -6,7 +6,7 @@ import POSTRequestBlock from "./components/POSTRequestBlock";
 
 import "./sass/style.scss";
 
-function App() {
+export default function App() {
 	return (
 		<>
 			<Header />
@@ -15,5 +15,3 @@ function App() {
 		</>
 	);
 }
-
-export default App;
