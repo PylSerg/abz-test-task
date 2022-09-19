@@ -1,17 +1,20 @@
 .get-block {
-	display: block;
-
-	width: 100%;
+	display: flex;
+	flex-direction: column;
 
 	margin-top: 140px;
 	padding: 0 16px;
 }
 
-.get-block__users {
-	width: calc(100% - 32px);
+.get-block__users-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	margin: 0;
+	margin-top: 50px;
 	padding: 0;
+	gap: 20px;
 
 	list-style: none;
 }
@@ -19,11 +22,45 @@
 .get-block__user {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+
+	width: 100%;
+	max-width: calc(328px - 2 * 20px);
+	height: calc(254px - 2 * 20px);
 
 	margin: 0;
 	padding: 20px;
 
 	background-color: #fff;
+	border-radius: 10px;
+}
+
+.get-block-user-avatar {
+	width: 70px;
+	height: 70px;
+
+	border-radius: 100%;
+}
+
+.get-block__user-name,
+.get-block__user-position,
+.get-block__user-email {
+	max-width: 288px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.get-block__user-name {
+	margin-top: 20px;
+}
+
+.get-block__user-position {
+	margin-top: 20px;
+}
+
+.get-block__user-email,
+.get-block__user-phone {
+	color: #000;
+	text-decoration: none;
 }
