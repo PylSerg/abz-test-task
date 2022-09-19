@@ -11,10 +11,10 @@ export default function GETRequestBlock() {
 					<img className="get-block-user-avatar" src={photoCover} alt="User avatar" />
 					<p className="get-block__user-name">User name is Jhon Spilberg and eschejhkjhkjhjk kto-to podobnyi</p>
 					<p className="get-block__user-position">User position kjlfdjfk lgjljg kfldjglkfdjgk jdflgjlfdjgldfjg jf</p>
-					<a href="mailto:fjkhgffj@ffgfg.fkjgfl" className="get-block__user-email" title="User email">
+					<a className="get-block__user-email" href="mailto:fjkhgffj@ffgfg.fkjgfl" title="User email">
 						User email dfh khhkjghfkjghkjfhgkjhfdgkjhfdkjhgfdkhgkjh
 					</a>
-					<a href="tel:+380682383696" className="get-block__user-phone">
+					<a className="get-block__user-phone" href="tel:+380682383696">
 						User phone number
 					</a>
 				</li>
@@ -31,6 +31,10 @@ export default function GETRequestBlock() {
 					</a>
 				</li>
 			</ul>
+
+			<button className="button get-block__button" type="button">
+				Show more
+			</button>
 		</div>
 	);
 }
