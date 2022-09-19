@@ -12,6 +12,7 @@ export default function App() {
 			<Header />
 			<Hero />
 			<GETRequestBlock />
+			<POSTRequestBlock />
 		</>
 	);
 }
