@@ -190,19 +190,15 @@ export default function POSTRequestBlock() {
 		switch (watch("position")) {
 			case "Frontend developer":
 				return 1;
-				break;
 
 			case "Backend developer":
 				return 2;
-				break;
 
 			case "Designer":
 				return 3;
-				break;
 
 			case "QA":
 				return 4;
-				break;
 
 			default:
 				return;
