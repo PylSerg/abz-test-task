@@ -25,7 +25,7 @@ export default function POSTRequestBlock() {
 	}
 
 	// Name validation
-	function nameValidation() {
+	function nameValidator() {
 		const arrayExceptionForName = numbersArray + symbolsArray + specialSymbolsArray;
 
 		if (!watch("name")) {
@@ -50,13 +50,103 @@ export default function POSTRequestBlock() {
 		return true;
 	}
 
+	// Email validation
+	function emailValidator() {
+		const emailParts = watch("email").split("@");
+
+		if (!watch("email")) {
+			emailError.current.textContent = `Field can't be empty!`;
+			setValidity({ ...validity, email: false });
+
+			return false;
+		}
+
+		if (!watch("email").includes("@")) {
+			emailError.current.textContent = `Email must contain "@"`;
+			setValidity({ ...validity, email: false });
+
+			return false;
+		}
+
+		if (!emailParts[0] || !emailParts[1]) {
+			emailError.current.textContent = `Invalid email format!`;
+			setValidity({ ...validity, email: false });
+
+			return false;
+		}
+
+		if (!emailParts[1].includes(".")) {
+			emailError.current.textContent = `Invalid domain format!`;
+			setValidity({ ...validity, email: false });
+
+			return false;
+		}
+
+		for (let i = 0; i <= specialSymbolsArray.length; i++) {
+			if (emailParts[0].includes(specialSymbolsArray[i])) {
+				emailError.current.textContent = `Email can't contain special symbols!`;
+
+				setValidity({ ...validity, email: false });
+
+				return false;
+			}
+		}
+
+		setValidity({ ...validity, email: true });
+
+		return true;
+	}
+
+	// Phone validation
+	function phoneValidator() {
+		const phoneFormat = watch("phone").split(" ").join("");
+		let phoneValid = phoneFormat > 0;
+
+		if (!watch("phone")) {
+			phoneError.current.textContent = `Field can't be empty!`;
+			setValidity({ ...validity, phone: false });
+
+			return false;
+		}
+
+		if (!watch("phone").includes("+")) {
+			phoneError.current.textContent = `Phone format must be +380XXXXXXXXX`;
+			setValidity({ ...validity, phone: false });
+
+			return false;
+		}
+
+		if (!phoneValid) {
+			phoneError.current.textContent = `Phone number can contain only numbers and "+"`;
+			setValidity({ ...validity, phone: false });
+
+			return false;
+		}
+
+		if (phoneFormat.length !== 13) {
+			phoneError.current.textContent = `Invalid phone number!`;
+			setValidity({ ...validity, phone: false });
+
+			return false;
+		}
+
+		setValidity({ ...validity, phone: true });
+
+		return true;
+	}
+
 	// Submit function
 	function onSubmit(data) {
-		if (!nameValidation()) return console.log(`\x1b[31m Request failed: Name is invalid!`);
+		const phoneFormat = data.phone.split(" ").join("");
 
-		const res = { id: genID(), ...data, registration_timestamp: Date.now() };
+		const req = {
+			id: genID(),
+			...data,
+			phone: phoneFormat,
+			registration_timestamp: Date.now(),
+		};
 
-		console.log(res);
+		console.log(req);
 
 		reset();
 
@@ -70,19 +160,19 @@ export default function POSTRequestBlock() {
 
 			<form className="user-form" onSubmit={handleSubmit(onSubmit)}>
 				<label className="user-form__label">
-					<input className={inputStyle("name")} placeholder=" " {...register("name")} onBlur={nameValidation} />
+					<input className={inputStyle("name")} placeholder=" " {...register("name")} onBlur={nameValidator} />
 					<span className={titleStyle("name")}>Your name</span>
 					<span className={errorStyle("name")} ref={nameError} />
 				</label>
 
 				<label className="user-form__label">
-					<input className={inputStyle("email")} placeholder=" " {...register("email")} />
+					<input className={inputStyle("email")} placeholder=" " {...register("email")} onBlur={emailValidator} />
 					<span className={titleStyle("email")}>Email</span>
 					<span className={errorStyle("email")} ref={emailError} />
 				</label>
 
 				<label className="user-form__label">
-					<input className={inputStyle("phone")} placeholder="+38" {...register("phone")} />
+					<input className={inputStyle("phone")} placeholder="+38" {...register("phone")} onBlur={phoneValidator} />
 					<span className={titleStyle("phone")}>Phone</span>
 					<span className={errorStyle("phone")} ref={phoneError} />
 				</label>
