@@ -189,6 +189,8 @@ export default function POSTRequestBlock() {
 
 		reset();
 
+		setFieldReadyToSend({ name: false, email: false, phone: false });
+
 		return console.log(`\x1b[32m Request status: OK`);
 	}
 
