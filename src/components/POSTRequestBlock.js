@@ -5,17 +5,17 @@ import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validatio
 
 export default function POSTRequestBlock() {
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true });
-	const [fieldReadyToSend, setFieldReadyToSend] = useState({ name: false, email: false, phone: false });
+	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false });
 	const [checked, setChecked] = useState(true);
+	const [photoName, setPhotoName] = useState("Upload your photo");
+
 	const { register, handleSubmit, watch } = useForm();
 
 	const nameError = createRef();
 	const emailError = createRef();
 	const phoneError = createRef();
 
-	const send = fieldReadyToSend.name && fieldReadyToSend.email && fieldReadyToSend.phone;
-
-	console.log(`\x1b[33m ${watch("position")}`);
+	const send = possibilityOfSending.name && possibilityOfSending.email && possibilityOfSending.phone;
 
 	useEffect(() => {
 		setChecked(null);
@@ -44,6 +44,10 @@ export default function POSTRequestBlock() {
 		return true;
 	}
 
+	function uploadStyle() {
+		return watch("photo")?.[0]?.name ? "user-form__field user-form__photo-name" : "user-form__field user-form__photo-name user-form__photo-name--empty";
+	}
+
 	// Name validation
 	function nameValidator() {
 		const arrayExceptionForName = numbersArray + symbolsArray + specialSymbolsArray;
@@ -67,11 +71,11 @@ export default function POSTRequestBlock() {
 
 		function makeNameInvalid() {
 			setValidity({ ...validity, name: false });
-			setFieldReadyToSend({ ...fieldReadyToSend, name: false });
+			setPossibilityOfSending({ ...possibilityOfSending, name: false });
 		}
 
 		setValidity({ ...validity, name: true });
-		setFieldReadyToSend({ ...fieldReadyToSend, name: true });
+		setPossibilityOfSending({ ...possibilityOfSending, name: true });
 
 		return true;
 	}
@@ -124,11 +128,11 @@ export default function POSTRequestBlock() {
 
 		function makeEmailInvalid() {
 			setValidity({ ...validity, email: false });
-			setFieldReadyToSend({ ...fieldReadyToSend, email: false });
+			setPossibilityOfSending({ ...possibilityOfSending, email: false });
 		}
 
 		setValidity({ ...validity, email: true });
-		setFieldReadyToSend({ ...fieldReadyToSend, email: true });
+		setPossibilityOfSending({ ...possibilityOfSending, email: true });
 
 		return true;
 	}
@@ -172,24 +176,57 @@ export default function POSTRequestBlock() {
 
 		function makePhoneInvalid() {
 			setValidity({ ...validity, phone: false });
-			setFieldReadyToSend({ ...fieldReadyToSend, phone: false });
+			setPossibilityOfSending({ ...possibilityOfSending, phone: false });
 		}
 
 		setValidity({ ...validity, phone: true });
-		setFieldReadyToSend({ ...fieldReadyToSend, phone: true });
+		setPossibilityOfSending({ ...possibilityOfSending, phone: true });
 
 		return true;
 	}
 
+	// Assigning an identifier position
+	function positionId() {
+		switch (watch("position")) {
+			case "Frontend developer":
+				return 1;
+				break;
+
+			case "Backend developer":
+				return 2;
+				break;
+
+			case "Designer":
+				return 3;
+				break;
+
+			case "QA":
+				return 4;
+				break;
+
+			default:
+				return;
+		}
+	}
+
+	// Changes photo name
+	function changePhotoName() {
+		setPhotoName(watch("photo")[0]?.name);
+
+		if (watch("photo")?.[0]?.name === undefined) setPhotoName("Upload your photo");
+	}
+
 	// Submit function
 	function onSubmit(data) {
-		const phoneFormat = data.phone.split(" ").join("");
-
 		const req = {
 			id: genID(),
-			...data,
-			phone: phoneFormat,
+			name: data.name,
+			email: data.email,
+			phone: data.phone.split(" ").join(""),
+			position: data.position,
+			position_id: positionId(),
 			registration_timestamp: Date.now(),
+			photo: data.photo,
 		};
 
 		console.log(req);
@@ -197,13 +234,14 @@ export default function POSTRequestBlock() {
 		return console.log(`\x1b[32m Request status: OK`);
 	}
 
-	// Render
 	return (
 		<div className="post-block">
 			<h1>Working with POST request</h1>
 
-			<form className="user-form" onSubmit={handleSubmit(onSubmit)}>
-				{/* Input block */}
+			<form className="user-form" encType="multipart/form-data" action="/upload/image" onSubmit={handleSubmit(onSubmit)}>
+				{/*
+					Contact block
+				*/}
 				<div>
 					<label className="user-form__label">
 						<input className={inputStyle("name")} autoComplete="none" placeholder=" " {...register("name")} onBlur={nameValidator} />
@@ -224,7 +262,9 @@ export default function POSTRequestBlock() {
 					</label>
 				</div>
 
-				{/* Position block */}
+				{/*
+					Position block
+				*/}
 				<div className="user-form__position-block">
 					<p>Select your position</p>
 
@@ -259,6 +299,22 @@ export default function POSTRequestBlock() {
 					</div>
 				</div>
 
+				{/*
+					Upload image
+				*/}
+				<div className="user-form__photo-block">
+					<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={changePhotoName} />
+
+					<label className="user-form__upload-button" htmlFor="userPhoto">
+						Upload
+					</label>
+
+					<div className={uploadStyle()}>{photoName}</div>
+				</div>
+
+				{/*
+					Submit form
+				*/}
 				<input className={buttonStyle()} type="submit" value="Sing up" disabled={disabledButton()} />
 			</form>
 		</div>
