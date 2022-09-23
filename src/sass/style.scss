@@ -55,6 +55,15 @@ p {
 	background-color: $button-color-hover;
 }
 
+.button--disabled {
+	background-color: #b4b4b4;
+}
+
+.button--disabled:hover,
+.button--disabled:focus {
+	background-color: #b4b4b4;
+}
+
 //Import components styles
 @import "./components/header";
 @import "./components/hero";
