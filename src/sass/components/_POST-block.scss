@@ -10,6 +10,12 @@
 	margin-top: 50px;
 }
 
+/* 
+
+	Contact block
+
+*/
+
 .user-form__label {
 	position: relative;
 	left: 0;
@@ -88,6 +94,12 @@
 	color: $error-color;
 }
 
+/*
+
+	Position block
+
+*/
+
 .user-form__position-block {
 	margin-top: 43px;
 }
@@ -139,6 +151,63 @@
 	border: 1px solid #00bdd3;
 }
 
+/*
+
+	Upload photo
+
+*/
+
+.user-form__photo-block {
+	position: relative;
+
+	margin-top: 47px;
+}
+
+.user-form__upload-photo {
+	position: absolute;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+}
+
+.user-form__upload-button {
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 83px;
+	height: 52px;
+
+	border: 1px solid rgba(0, 0, 0, 0.87);
+	border-radius: 4px 0px 0px 4px;
+
+	cursor: pointer;
+}
+
+.user-form__photo-name {
+	display: flex;
+	align-items: center;
+
+	padding-left: 99px;
+}
+
+.user-form__photo-name--empty {
+	color: #7e7e7e;
+}
+
+/*
+
+	Submit button
+
+*/
+
 .user-form__button {
 	margin: 0 auto;
+	margin-top: 50px;
 }
