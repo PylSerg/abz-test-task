@@ -5,7 +5,7 @@ import photoCover from "../assets/photo-cover.svg";
 export default function GETRequestBlock() {
 	const [users, setUsers] = useState([]);
 	console.log(`users`, users);
-	const [page, setPage] = useState(12);
+	const [page, setPage] = useState(1);
 	const [lastPage, setLastPage] = useState(false);
 
 	useEffect(() => {
