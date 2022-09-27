@@ -190,6 +190,10 @@
 	cursor: pointer;
 }
 
+.user-form__upload-button--error {
+	border-color: #cb3d40;
+}
+
 .user-form__photo-name {
 	display: flex;
 	align-items: center;
