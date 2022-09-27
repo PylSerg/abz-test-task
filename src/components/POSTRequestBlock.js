@@ -47,7 +47,7 @@ export default function POSTRequestBlock() {
 		return true;
 	}
 
-	function uploadPhotoBUtton() {
+	function uploadPhotoButtonStyle() {
 		return validity.photo ? "user-form__upload-button" : "user-form__upload-button user-form__upload-button--error";
 	}
 
@@ -342,7 +342,7 @@ export default function POSTRequestBlock() {
 					<div className="user-form__photo-block">
 						<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={photoFieldController} />
 
-						<label className={uploadPhotoBUtton()} htmlFor="userPhoto">
+						<label className={uploadPhotoButtonStyle()} htmlFor="userPhoto">
 							Upload
 						</label>
 
