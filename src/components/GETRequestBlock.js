@@ -4,7 +4,8 @@ import photoCover from "../assets/photo-cover.svg";
 
 export default function GETRequestBlock() {
 	const [users, setUsers] = useState([]);
-	const [page, setPage] = useState(1);
+	console.log(`users`, users);
+	const [page, setPage] = useState(12);
 	const [lastPage, setLastPage] = useState(false);
 
 	useEffect(() => {
@@ -41,7 +42,11 @@ export default function GETRequestBlock() {
 			<ul className="get-block__users-list">
 				{users.map(user => (
 					<li className="get-block__user" key={user.id}>
-						<img className="get-block-user-avatar" src={user?.photo || photoCover} alt={user?.name} />
+						<img
+							className="get-block-user-avatar"
+							src={user?.photo !== "https://frontend-test-assignment-api.abz.agency/images/placeholders/placeholder.png" ? user?.photo : photoCover || photoCover}
+							alt={user?.name}
+						/>
 						<p className="get-block__user-name">{user?.name || "No name"}</p>
 						<p className="get-block__user-position">{user?.position || "No position"}</p>
 						<a className="get-block__user-email" href={`mailto:${user?.email}`} title={user?.email}>
