@@ -4,7 +4,7 @@ import { generate as genID } from "shortid";
 import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
 
-export default function POSTRequestBlock() {
+export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [newUser, setNewUser] = useState(true);
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: true });
@@ -266,6 +266,9 @@ export default function POSTRequestBlock() {
 		console.log(req);
 
 		setNewUser(false);
+
+		setUsers([]);
+		setPage(1);
 
 		return console.log(`\x1b[32m Request status: OK`);
 	}

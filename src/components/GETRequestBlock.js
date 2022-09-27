@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import photoCover from "../assets/photo-cover.svg";
 
-export default function GETRequestBlock() {
-	const [users, setUsers] = useState([]);
-	console.log(`users`, users);
-	const [page, setPage] = useState(1);
+export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 	const [lastPage, setLastPage] = useState(false);
 
 	useEffect(() => {
