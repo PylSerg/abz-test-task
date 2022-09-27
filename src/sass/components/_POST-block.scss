@@ -87,7 +87,7 @@
 }
 
 .user-form__field-error {
-	border: 1px solid $error-color;
+	border-color: $error-color;
 }
 
 .user-form__title-error {
@@ -191,7 +191,7 @@
 }
 
 .user-form__upload-button--error {
-	border-color: #cb3d40;
+	border-color: $error-color;
 }
 
 .user-form__photo-name {
