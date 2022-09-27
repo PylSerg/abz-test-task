@@ -4,8 +4,8 @@ import { generate as genID } from "shortid";
 import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validation-symbols";
 
 export default function POSTRequestBlock() {
-	const [validity, setValidity] = useState({ name: true, email: true, phone: true });
-	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false });
+	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
+	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: true });
 	const [checked, setChecked] = useState(true);
 	const [photoName, setPhotoName] = useState("Upload your photo");
 
@@ -14,8 +14,9 @@ export default function POSTRequestBlock() {
 	const nameError = createRef();
 	const emailError = createRef();
 	const phoneError = createRef();
+	const photoError = createRef();
 
-	const send = possibilityOfSending.name && possibilityOfSending.email && possibilityOfSending.phone;
+	const send = possibilityOfSending.name && possibilityOfSending.email && possibilityOfSending.phone && possibilityOfSending.photo;
 
 	useEffect(() => {
 		setChecked(null);
@@ -34,18 +35,30 @@ export default function POSTRequestBlock() {
 		return validity[el] ? "user-form__error user-form__error--hidden" : "user-form__error";
 	}
 
-	function buttonStyle() {
+	function sendButtonStyle() {
 		return send ? "button user-form__button" : "button user-form__button button--disabled";
 	}
 
-	function disabledButton() {
+	function disabledSendButton() {
 		if (send) return false;
 
 		return true;
 	}
 
-	function uploadStyle() {
-		return watch("photo")?.[0]?.name ? "user-form__field user-form__photo-name" : "user-form__field user-form__photo-name user-form__photo-name--empty";
+	function uploadPhotoBUtton() {
+		return validity.photo ? "user-form__upload-button" : "user-form__upload-button user-form__upload-button--error";
+	}
+
+	function uploadFieldStyle() {
+		if (validity.photo) {
+			if (watch("photo")?.[0]?.name) {
+				return "user-form__field user-form__photo-name";
+			}
+
+			return "user-form__field user-form__photo-name user-form__photo-name--empty";
+		}
+
+		return "user-form__field user-form__field-error user-form__photo-name";
 	}
 
 	// Name validation
@@ -185,6 +198,36 @@ export default function POSTRequestBlock() {
 		return true;
 	}
 
+	// Photo validation
+	function photoValidator() {
+		if (watch("photo")?.[0]?.type !== "image/jpeg" && watch("photo")?.[0]?.type !== undefined) {
+			photoError.current.textContent = `Photo format must be only JPEG`;
+
+			setValidity({ ...validity, photo: false });
+			setPossibilityOfSending({ ...possibilityOfSending, photo: false });
+
+			return false;
+		}
+
+		setValidity({ ...validity, photo: true });
+		setPossibilityOfSending({ ...possibilityOfSending, photo: true });
+
+		return true;
+	}
+
+	// Changes photo name
+	function changePhotoName() {
+		setPhotoName(watch("photo")[0]?.name);
+
+		if (watch("photo")?.[0]?.name === undefined) setPhotoName("Upload your photo");
+	}
+
+	// Photo field controller
+	function photoFieldController() {
+		changePhotoName();
+		photoValidator();
+	}
+
 	// Assigning an identifier position
 	function positionId() {
 		switch (watch("position")) {
@@ -203,13 +246,6 @@ export default function POSTRequestBlock() {
 			default:
 				return;
 		}
-	}
-
-	// Changes photo name
-	function changePhotoName() {
-		setPhotoName(watch("photo")[0]?.name);
-
-		if (watch("photo")?.[0]?.name === undefined) setPhotoName("Upload your photo");
 	}
 
 	// Submit function
@@ -299,19 +335,21 @@ export default function POSTRequestBlock() {
 					Upload image
 				*/}
 				<div className="user-form__photo-block">
-					<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={changePhotoName} />
+					<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={photoFieldController} />
 
-					<label className="user-form__upload-button" htmlFor="userPhoto">
+					<label className={uploadPhotoBUtton()} htmlFor="userPhoto">
 						Upload
 					</label>
 
-					<div className={uploadStyle()}>{photoName}</div>
+					<div className={uploadFieldStyle()}>{photoName}</div>
+
+					<span className={errorStyle("photo")} ref={photoError} />
 				</div>
 
 				{/*
 					Submit form
 				*/}
-				<input className={buttonStyle()} type="submit" value="Sing up" disabled={disabledButton()} />
+				<input className={sendButtonStyle()} type="submit" value="Sing up" disabled={disabledSendButton()} />
 			</form>
 		</div>
 	);
