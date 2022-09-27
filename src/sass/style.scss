@@ -66,6 +66,10 @@ p {
 	background-color: #b4b4b4;
 }
 
+.hidden-element {
+	display: none;
+}
+
 //Import components styles
 @import "./components/header";
 @import "./components/hero";

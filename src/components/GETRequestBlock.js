@@ -4,7 +4,7 @@ import photoCover from "../assets/photo-cover.svg";
 
 export default function GETRequestBlock() {
 	const [users, setUsers] = useState([]);
-	const [page, setPage] = useState(16);
+	const [page, setPage] = useState(1);
 	const [lastPage, setLastPage] = useState(false);
 
 	useEffect(() => {
@@ -21,12 +21,17 @@ export default function GETRequestBlock() {
 		setUsers(newUsersList);
 
 		// Pre-request
-		await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page + 1}&count=6`).catch(setLastPage(true));
+		await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page + 1}&count=6`).catch(() => setLastPage(true));
 	}
 
 	// Go to next page
 	function nextPage() {
 		setPage(prevPage => prevPage + 1);
+	}
+
+	// Button dynamic style
+	function buttonStyle() {
+		return lastPage ? "hidden-element" : "button get-block__button";
 	}
 
 	return (
@@ -49,7 +54,7 @@ export default function GETRequestBlock() {
 				))}
 			</ul>
 
-			<button className="button get-block__button" type="button" onClick={nextPage}>
+			<button className={buttonStyle()} type="button" onClick={nextPage}>
 				Show more
 			</button>
 		</div>
