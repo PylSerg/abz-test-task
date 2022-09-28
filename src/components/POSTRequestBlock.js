@@ -282,12 +282,10 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 						setNewUser(false);
 						setUsers([]);
 						setPage(1);
-					} else {
-						// proccess server errors
 					}
 				})
 				.catch(function (error) {
-					// proccess network errors
+					console.log(`\x1b[31m ${error}`);
 				});
 		}
 	}
