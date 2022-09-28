@@ -253,13 +253,12 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	// Submit function
 	function onSubmit(data) {
 		const formData = new FormData();
-		const fileField = document.querySelector('input[type="file"]');
 
 		formData.append("position_id", data.position_id);
 		formData.append("name", data.name);
 		formData.append("email", data.email);
 		formData.append("phone", data.phone);
-		formData.append("photo", fileField.files[0]);
+		formData.append("photo", data.photo[0]);
 
 		postRequest();
 
