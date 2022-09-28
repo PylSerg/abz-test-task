@@ -1,14 +1,13 @@
 import { useState, useEffect, createRef } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { generate as genID } from "shortid";
 import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
 
 export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [newUser, setNewUser] = useState(true);
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
-	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: true });
+	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: false });
 	const [positionsList, setPositionsList] = useState([]);
 	const [photoName, setPhotoName] = useState("Upload your photo");
 
@@ -71,10 +70,10 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	}
 
 	// Make first position checked
-	function checkPosition(name) {
-		if (watch("position") === null) return name === positionsList[0].name ? true : null;
+	function checkPosition(id) {
+		if (watch("position_id") === undefined) return id === positionsList[0].id ? true : null;
 
-		return name === watch("position") ? true : null;
+		return id === Number(watch("position_id")) ? true : null;
 	}
 
 	// Name validation
@@ -244,47 +243,53 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 		photoValidator();
 	}
 
-	// Assigning an identifier position
-	function positionId() {
-		switch (watch("position")) {
-			case "Frontend developer":
-				return 1;
+	// Get token
+	async function getToken() {
+		const newToken = await axios.get("https://frontend-test-assignment-api.abz.agency/api/v1/token").then(resp => resp.data.token);
 
-			case "Backend developer":
-				return 2;
-
-			case "Designer":
-				return 3;
-
-			case "QA":
-				return 4;
-
-			default:
-				return;
-		}
+		return newToken;
 	}
 
 	// Submit function
 	function onSubmit(data) {
-		const req = {
-			// id: genID(),
-			name: data.name,
-			email: data.email,
-			phone: data.phone.split(" ").join(""),
-			position: data.position,
-			position_id: positionId(),
-			registration_timestamp: Date.now(),
-			photo: data.photo,
-		};
+		const formData = new FormData();
+		const fileField = document.querySelector('input[type="file"]');
 
-		console.log(req);
+		formData.append("position_id", data.position_id);
+		formData.append("name", data.name);
+		formData.append("email", data.email);
+		formData.append("phone", data.phone);
+		formData.append("photo", fileField.files[0]);
 
-		setNewUser(false);
+		postRequest();
 
-		setUsers([]);
-		setPage(1);
+		async function postRequest() {
+			const TOKEN = await getToken();
 
-		return console.log(`\x1b[32m Request status: OK`);
+			await fetch("https://frontend-test-assignment-api.abz.agency/api/v1/users", {
+				method: "POST",
+				body: formData,
+				headers: {
+					Token: TOKEN,
+				},
+			})
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (data) {
+					console.log(data);
+					if (data.success) {
+						setNewUser(false);
+						setUsers([]);
+						setPage(1);
+					} else {
+						// proccess server errors
+					}
+				})
+				.catch(function (error) {
+					// proccess network errors
+				});
+		}
 	}
 
 	return (
@@ -325,7 +330,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 						<ul className="user-form__radio-block">
 							{positionsList.map(position => (
 								<li className="user-form__radio-position" key={position.id}>
-									<input type="radio" id={position.id} value={position.name} {...register("position")} checked={checkPosition(position.name)} />
+									<input type="radio" id={position.id} value={position.id} {...register("position_id")} checked={checkPosition(position.id)} />
 									<label htmlFor={position.id} className="user-form__radio-label">
 										{position.name}
 									</label>
