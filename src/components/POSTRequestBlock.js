@@ -87,6 +87,13 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
+		if (watch("name").length < 2 || watch("name") > 60) {
+			nameError.current.textContent = `Name should be 2-60 characters`;
+			makeNameInvalid();
+
+			return false;
+		}
+
 		for (let i = 0; i <= arrayExceptionForName.length; i++) {
 			if (watch("name").includes(arrayExceptionForName[i])) {
 				nameError.current.textContent = `Name can contain only letters or "-"`;
