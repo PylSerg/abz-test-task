@@ -1,5 +1,6 @@
 import { useState, useEffect, createRef } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { generate as genID } from "shortid";
 import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
@@ -8,6 +9,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [newUser, setNewUser] = useState(true);
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: true });
+	const [positionsList, setPositionsList] = useState([]);
 	const [checked, setChecked] = useState(true);
 	const [photoName, setPhotoName] = useState("Upload your photo");
 
@@ -22,6 +24,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 
 	useEffect(() => {
 		setChecked(null);
+		getPosition();
 	}, []);
 
 	// Dynamic styles
@@ -61,6 +64,12 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 		}
 
 		return "user-form__field user-form__field-error user-form__photo-name";
+	}
+
+	// Request for get positions
+	async function getPosition() {
+		const getPositions = await axios.get("https://frontend-test-assignment-api.abz.agency/api/v1/positions");
+		setPositionsList(getPositions.data.positions);
 	}
 
 	// Name validation
@@ -253,7 +262,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	// Submit function
 	function onSubmit(data) {
 		const req = {
-			id: genID(),
+			// id: genID(),
 			name: data.name,
 			email: data.email,
 			phone: data.phone.split(" ").join(""),
@@ -308,35 +317,16 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					<div className="user-form__position-block">
 						<p>Select your position</p>
 
-						<div className="user-form__radio-block">
-							<div className="user-form__radio-position">
-								<input type="radio" id="frontendDeveloper" value="Frontend developer" {...register("position")} checked={checked} />
-								<label htmlFor="frontendDeveloper" className="user-form__radio-label">
-									Frontend developer
-								</label>
-							</div>
-
-							<div className="user-form__radio-position">
-								<input type="radio" id="backendDeveloper" value="Backend developer" {...register("position")} />
-								<label htmlFor="backendDeveloper" className="user-form__radio-label">
-									Backend developer
-								</label>
-							</div>
-
-							<div className="user-form__radio-position">
-								<input type="radio" id="designer" value="Designer" {...register("position")} />
-								<label htmlFor="designer" className="user-form__radio-label">
-									Designer
-								</label>
-							</div>
-
-							<div className="user-form__radio-position">
-								<input type="radio" id="qa" value="QA" {...register("position")} />
-								<label htmlFor="qa" className="user-form__radio-label">
-									QA
-								</label>
-							</div>
-						</div>
+						<ul className="user-form__radio-block">
+							{positionsList.map(position => (
+								<li className="user-form__radio-position" key={position.id}>
+									<input type="radio" id={position.id} value={position.name} {...register("position")} />
+									<label htmlFor={position.id} className="user-form__radio-label">
+										{position.name}
+									</label>
+								</li>
+							))}
+						</ul>
 					</div>
 
 					{/*
