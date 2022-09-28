@@ -313,7 +313,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	}
 
 	return (
-		<div className="post-block">
+		<div className="post-block" id="sing-up">
 			<h1>Working with POST request</h1>
 
 			{newUser && (

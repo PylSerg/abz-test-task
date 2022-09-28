@@ -1,4 +1,5 @@
 import React from "react";
+import { goToForm } from "../js/anchor-crossing";
 
 export default function Hero() {
 	return (
@@ -10,7 +11,7 @@ export default function Hero() {
 				accessibility in mind. They should also be excited to learn, as the world of Front-End Development keeps evolving.
 			</p>
 
-			<button className="button hero__button" type="button">
+			<button className="button hero__button" type="button" onClick={goToForm}>
 				Sing up
 			</button>
 		</div>

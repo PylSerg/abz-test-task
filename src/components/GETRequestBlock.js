@@ -37,7 +37,7 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 	}
 
 	return (
-		<div className="get-block">
+		<div className="get-block" id="users">
 			<h1>Working with GET request</h1>
 
 			<ul className="get-block__users-list">
