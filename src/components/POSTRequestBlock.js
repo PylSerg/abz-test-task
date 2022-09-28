@@ -1,7 +1,7 @@
 import { useState, useEffect, createRef } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { numbersArray, symbolsArray, specialSymbolsArray } from "../js/validation-symbols";
+import { numbersArray, symbolsArray, specialSymbolsArray, emailFormat } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
 
 export default function POSTRequestBlock({ setUsers, setPage }) {
@@ -135,14 +135,6 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
-		if (!emailParts[0] || !emailParts[1]) {
-			emailError.current.textContent = `Invalid email format!`;
-
-			makeEmailInvalid();
-
-			return false;
-		}
-
 		if (!emailParts[1].includes(".")) {
 			emailError.current.textContent = `Invalid domain format!`;
 
@@ -151,14 +143,12 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
-		for (let i = 0; i <= specialSymbolsArray.length; i++) {
-			if (emailParts[0].includes(specialSymbolsArray[i])) {
-				emailError.current.textContent = `Email can't contain special symbols!`;
+		if (!emailFormat.test(watch("email"))) {
+			emailError.current.textContent = `Invalid email format!`;
 
-				makeEmailInvalid();
+			makeEmailInvalid();
 
-				return false;
-			}
+			return false;
 		}
 
 		function makeEmailInvalid() {
@@ -185,7 +175,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
-		if (!watch("phone").includes("+")) {
+		if (!watch("phone").includes("+380")) {
 			phoneError.current.textContent = `Phone format must be +380XXXXXXXXX`;
 
 			makePhoneInvalid();
@@ -319,7 +309,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 						</label>
 
 						<label className="user-form__label">
-							<input className={inputStyle("phone")} autoComplete="none" placeholder="+38" {...register("phone")} onBlur={phoneValidator} />
+							<input className={inputStyle("phone")} autoComplete="none" placeholder="+380" {...register("phone")} onBlur={phoneValidator} />
 							<span className={titleStyle("phone")}>Phone</span>
 							<span className={errorStyle("phone")} ref={phoneError} />
 						</label>
