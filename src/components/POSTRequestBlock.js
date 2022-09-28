@@ -1,7 +1,7 @@
 import { useState, useEffect, createRef } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { numbersArray, symbolsArray, specialSymbolsArray, emailFormat } from "../js/validation-symbols";
+import { symbolsArray, emailFormat } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
 
 export default function POSTRequestBlock({ setUsers, setPage }) {
@@ -78,8 +78,6 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 
 	// Name validation
 	function nameValidator() {
-		const arrayExceptionForName = numbersArray + symbolsArray + specialSymbolsArray;
-
 		if (!watch("name")) {
 			nameError.current.textContent = `Field can't be empty!`;
 			makeNameInvalid();
@@ -94,8 +92,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
-		for (let i = 0; i <= arrayExceptionForName.length; i++) {
-			if (watch("name").includes(arrayExceptionForName[i])) {
+		for (let i = 0; i <= symbolsArray.length; i++) {
+			if (watch("name").includes(symbolsArray[i])) {
 				nameError.current.textContent = `Name can contain only letters or "-"`;
 
 				makeNameInvalid();
