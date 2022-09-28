@@ -10,7 +10,6 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: true });
 	const [positionsList, setPositionsList] = useState([]);
-	const [checked, setChecked] = useState(true);
 	const [photoName, setPhotoName] = useState("Upload your photo");
 
 	const { register, handleSubmit, watch } = useForm();
@@ -23,7 +22,6 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	const send = possibilityOfSending.name && possibilityOfSending.email && possibilityOfSending.phone && possibilityOfSending.photo;
 
 	useEffect(() => {
-		setChecked(null);
 		getPosition();
 	}, []);
 
@@ -70,6 +68,13 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	async function getPosition() {
 		const getPositions = await axios.get("https://frontend-test-assignment-api.abz.agency/api/v1/positions");
 		setPositionsList(getPositions.data.positions);
+	}
+
+	// Make first position checked
+	function checkPosition(name) {
+		if (watch("position") === null) return name === positionsList[0].name ? true : null;
+
+		return name === watch("position") ? true : null;
 	}
 
 	// Name validation
@@ -320,7 +325,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 						<ul className="user-form__radio-block">
 							{positionsList.map(position => (
 								<li className="user-form__radio-position" key={position.id}>
-									<input type="radio" id={position.id} value={position.name} {...register("position")} />
+									<input type="radio" id={position.id} value={position.name} {...register("position")} checked={checkPosition(position.name)} />
 									<label htmlFor={position.id} className="user-form__radio-label">
 										{position.name}
 									</label>
