@@ -207,6 +207,11 @@
 	align-items: center;
 
 	padding-left: 99px;
+	padding-right: 15px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .user-form__photo-name--empty {

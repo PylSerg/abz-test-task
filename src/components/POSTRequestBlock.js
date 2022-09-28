@@ -69,7 +69,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 		setPositionsList(getPositions.data.positions);
 	}
 
-	// Make first position checked
+	// Makes first position checked
 	function checkPosition(id) {
 		if (watch("position_id") === undefined) return id === positionsList[0].id ? true : null;
 
@@ -102,11 +102,13 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			}
 		}
 
+		// Makes name invalid
 		function makeNameInvalid() {
 			setValidity({ ...validity, name: false });
 			setPossibilityOfSending({ ...possibilityOfSending, name: false });
 		}
 
+		// Makes name valid and possibility for sending
 		setValidity({ ...validity, name: true });
 		setPossibilityOfSending({ ...possibilityOfSending, name: true });
 
@@ -149,11 +151,13 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
+		// Makes email invalid
 		function makeEmailInvalid() {
 			setValidity({ ...validity, email: false });
 			setPossibilityOfSending({ ...possibilityOfSending, email: false });
 		}
 
+		// Makes email valid and possibility for sending
 		setValidity({ ...validity, email: true });
 		setPossibilityOfSending({ ...possibilityOfSending, email: true });
 
@@ -197,11 +201,13 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			return false;
 		}
 
+		// Makes phone invalid
 		function makePhoneInvalid() {
 			setValidity({ ...validity, phone: false });
 			setPossibilityOfSending({ ...possibilityOfSending, phone: false });
 		}
 
+		// Makes phone valid and possibility for sending
 		setValidity({ ...validity, phone: true });
 		setPossibilityOfSending({ ...possibilityOfSending, phone: true });
 
@@ -210,15 +216,37 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 
 	// Photo validation
 	function photoValidator() {
-		if (watch("photo")?.[0]?.type !== "image/jpeg" && watch("photo")?.[0]?.type !== undefined) {
-			photoError.current.textContent = `Photo format must be only JPEG`;
+		if (watch("photo").length === 0) {
+			photoError.current.textContent = `Field can't be empty!`;
 
-			setValidity({ ...validity, photo: false });
-			setPossibilityOfSending({ ...possibilityOfSending, photo: false });
+			makePhotoInvalid();
 
 			return false;
 		}
 
+		if (watch("photo")?.[0]?.type !== "image/jpeg" && watch("photo")?.[0]?.type !== undefined) {
+			photoError.current.textContent = `Photo format must be only JPEG`;
+
+			makePhotoInvalid();
+
+			return false;
+		}
+
+		if (watch("photo")?.[0]?.size > 5242880) {
+			photoError.current.textContent = `Size must not exceed 5Mb`;
+
+			makePhotoInvalid();
+
+			return false;
+		}
+
+		// Makes photo invalid
+		function makePhotoInvalid() {
+			setValidity({ ...validity, photo: false });
+			setPossibilityOfSending({ ...possibilityOfSending, photo: false });
+		}
+
+		// Makes photo valid and possibility for sending
 		setValidity({ ...validity, photo: true });
 		setPossibilityOfSending({ ...possibilityOfSending, photo: true });
 
@@ -341,7 +369,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 							Upload
 						</label>
 
-						<div className={uploadFieldStyle()}>{photoName}</div>
+						<input className={uploadFieldStyle()} value={photoName} type="text" readOnly />
 
 						<span className={errorStyle("photo")} ref={photoError} />
 					</div>
