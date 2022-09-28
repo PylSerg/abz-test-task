@@ -9,6 +9,10 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 		getUsersList();
 	}, [page]);
 
+	useEffect(() => {
+		if (users.length === 0) getUsersList();
+	}, [users]);
+
 	// GET request
 	async function getUsersList() {
 		const newUsersList = [...users].sort((a, b) => b.registration_timestamp - a.registration_timestamp);
