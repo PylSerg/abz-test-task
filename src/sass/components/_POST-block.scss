@@ -105,7 +105,11 @@
 }
 
 .user-form__radio-block {
+	margin: 0;
 	margin-top: 11px;
+	padding: 0;
+
+	list-style: none;
 }
 
 .user-form__radio-position {
