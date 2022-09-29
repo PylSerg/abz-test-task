@@ -12,10 +12,24 @@
 	background-image: url("../../assets/hero-360.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	@media screen and (min-width: 768px) {
+		justify-content: center;
+
+		background-image: url("../../assets/hero-768.jpg");
+	}
 }
 
-.hero__title {
+.hero__text {
+	width: 100%;
+
 	margin-top: 40px;
+
+	@media screen and (min-width: 768px) {
+		width: 380px;
+
+		margin-top: 0;
+	}
 }
 
 .hero__subtitle {
