@@ -71,6 +71,7 @@ p {
 }
 
 //Import components styles
+@import "./components/loading";
 @import "./components/header";
 @import "./components/hero";
 @import "./components/GET-block";

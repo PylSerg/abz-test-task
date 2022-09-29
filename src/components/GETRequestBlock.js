@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loading from "./Loading";
 import photoCover from "../assets/photo-cover.svg";
 
 export default function GETRequestBlock({ users, page, setUsers, setPage }) {
+	const [isLoading, setIsLoading] = useState(true);
 	const [lastPage, setLastPage] = useState(false);
 
 	useEffect(() => {
@@ -20,7 +22,9 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 		const response = await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page}&count=6`);
 		await response.data.users.map(user => newUsersList.push(user));
 
-		setUsers(newUsersList);
+		await setUsers(newUsersList);
+
+		setIsLoading(false);
 
 		// Pre-request
 		await axios.get(`https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page + 1}&count=6`).catch(() => setLastPage(true));
@@ -29,6 +33,8 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 	// Go to next page
 	function nextPage() {
 		setPage(prevPage => prevPage + 1);
+
+		setIsLoading(true);
 	}
 
 	// Button dynamic style
@@ -59,6 +65,8 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 					</li>
 				))}
 			</ul>
+
+			{isLoading && <Loading />}
 
 			<button className={buttonStyle()} type="button" onClick={nextPage}>
 				Show more
