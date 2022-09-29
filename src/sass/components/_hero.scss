@@ -13,7 +13,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: $width-screen-tablet) {
 		justify-content: center;
 
 		background-image: url("../../assets/hero-768.jpg");
@@ -25,7 +25,7 @@
 
 	margin-top: 40px;
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: $width-screen-tablet) {
 		width: 380px;
 
 		margin-top: 0;
