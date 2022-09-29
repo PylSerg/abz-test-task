@@ -12,7 +12,10 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 	}, [page]);
 
 	useEffect(() => {
-		if (users.length === 0) getUsersList();
+		if (users.length === 0) {
+			setIsLoading(true);
+			getUsersList();
+		}
 	}, [users]);
 
 	// GET request
