@@ -5,7 +5,7 @@ export default function Hero() {
 	return (
 		<div className="hero">
 			<div className="hero__text">
-				<h1 className="hero__title">Test assignment for front-end developer</h1>
+				<h1>Test assignment for front-end developer</h1>
 
 				<p className="hero__subtitle">
 					What defines a good front-end developer is one that has skilled knowledge of HTML, CSS, JS with a vast understanding of User design thinking as they'll be building web interfaces
