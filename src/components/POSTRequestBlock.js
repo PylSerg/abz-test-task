@@ -1,10 +1,12 @@
 import { useState, useEffect, createRef } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Loading from "./Loading";
 import { symbolsArray, emailFormat } from "../js/validation-symbols";
 import successImage from "../assets/success-image.svg";
 
 export default function POSTRequestBlock({ setUsers, setPage }) {
+	const [isLoading, setIsLoading] = useState(false);
 	const [newUser, setNewUser] = useState(true);
 	const [validity, setValidity] = useState({ name: true, email: true, phone: true, photo: true });
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: false });
@@ -275,6 +277,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 
 	// Submit function
 	function onSubmit(data) {
+		setIsLoading(true);
+
 		const formData = new FormData();
 
 		formData.append("position_id", data.position_id);
@@ -301,9 +305,12 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 				.then(function (data) {
 					console.log(data);
 					if (data.success) {
+						setIsLoading(false);
 						setNewUser(false);
 						setUsers([]);
 						setPage(1);
+					} else {
+						setIsLoading(false);
 					}
 				})
 				.catch(function (error) {
@@ -319,8 +326,17 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 			{newUser && (
 				<form className="user-form" encType="multipart/form-data" action="/upload/image" onSubmit={handleSubmit(onSubmit)}>
 					{/*
-					Contact block
-				*/}
+						Sending animation
+					*/}
+					{isLoading && (
+						<div className="post-block__sending">
+							<Loading />
+						</div>
+					)}
+
+					{/*
+						Contact block
+					*/}
 					<div>
 						<label className="user-form__label">
 							<input className={inputStyle("name")} autoComplete="none" placeholder=" " {...register("name")} onBlur={nameValidator} />
@@ -342,8 +358,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					</div>
 
 					{/*
-					Position block
-				*/}
+						Position block
+					*/}
 					<div className="user-form__position-block">
 						<p>Select your position</p>
 
@@ -360,8 +376,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					</div>
 
 					{/*
-					Upload image
-				*/}
+						Upload image
+					*/}
 					<div className="user-form__photo-block">
 						<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={photoFieldController} />
 
@@ -375,8 +391,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					</div>
 
 					{/*
-					Submit form
-				*/}
+						Submit form
+					*/}
 					<input className={sendButtonStyle()} type="submit" value="Sing up" disabled={disabledSendButton()} />
 				</form>
 			)}
