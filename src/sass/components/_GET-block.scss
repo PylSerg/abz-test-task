@@ -27,8 +27,7 @@
 	flex-direction: column;
 	align-items: center;
 
-	width: 100%;
-	max-width: calc(328px - 2 * 20px);
+	width: calc(328px - 2 * 20px);
 	height: calc(254px - 2 * 20px);
 
 	margin: 0;
@@ -48,7 +47,7 @@
 .get-block__user-name,
 .get-block__user-position,
 .get-block__user-email {
-	max-width: 288px;
+	max-width: calc(328px - 2 * 20px);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
