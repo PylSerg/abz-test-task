@@ -12,6 +12,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: false });
 	const [positionsList, setPositionsList] = useState([]);
 	const [photoName, setPhotoName] = useState("Upload your photo");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const { register, handleSubmit, watch } = useForm();
 
@@ -163,6 +164,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 		setValidity({ ...validity, email: true });
 		setPossibilityOfSending({ ...possibilityOfSending, email: true });
 
+		setErrorMessage("");
+
 		return true;
 	}
 
@@ -212,6 +215,8 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 		// Makes phone valid and possibility for sending
 		setValidity({ ...validity, phone: true });
 		setPossibilityOfSending({ ...possibilityOfSending, phone: true });
+
+		setErrorMessage("");
 
 		return true;
 	}
@@ -277,6 +282,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 
 	// Submit function
 	function onSubmit(data) {
+		setErrorMessage("");
 		setIsLoading(true);
 
 		const formData = new FormData();
@@ -311,6 +317,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 						setPage(1);
 					} else {
 						setIsLoading(false);
+						setErrorMessage(data.message);
 					}
 				})
 				.catch(function (error) {
@@ -391,7 +398,17 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					</div>
 
 					{/*
-						Submit form
+						Error message					
+					*/}
+					{errorMessage && (
+						<div className="user-form__error-block">
+							<div className="user-form__error-icon" />
+							<div className="user-form__error-message">{errorMessage}</div>
+						</div>
+					)}
+
+					{/*
+						Submit form button
 					*/}
 					<input className={sendButtonStyle()} type="submit" value="Sing up" disabled={disabledSendButton()} />
 				</form>
