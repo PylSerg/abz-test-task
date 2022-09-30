@@ -25,6 +25,10 @@
 	@media screen and (min-width: $width-screen-tablet) {
 		padding: 0 32px;
 	}
+
+	@media screen and (min-width: $width-screen-desktop) {
+		padding: 0 60px;
+	}
 }
 
 .header__logo {

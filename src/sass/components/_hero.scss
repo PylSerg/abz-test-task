@@ -18,6 +18,12 @@
 
 		background-image: url("../../assets/hero-768.jpg");
 	}
+
+	@media screen and (min-width: $width-screen-desktop) {
+		height: 650px;
+
+		background-image: url("../../assets/hero-1024.jpg");
+	}
 }
 
 .hero__text {

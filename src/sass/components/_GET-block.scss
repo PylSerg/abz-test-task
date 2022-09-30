@@ -10,6 +10,10 @@
 	@media screen and (min-width: $width-screen-tablet) {
 		padding: 0 32px;
 	}
+
+	@media screen and (min-width: $width-screen-desktop) {
+		padding: 0 60px;
+	}
 }
 
 .get-block__users-list {
@@ -30,6 +34,10 @@
 		flex-direction: row;
 
 		width: 704px;
+	}
+
+	@media screen and (min-width: $width-screen-tablet) {
+		width: 904px;
 	}
 }
 
@@ -53,6 +61,24 @@
 
 		&:nth-child(2n + 1) {
 			margin-right: 16px;
+		}
+	}
+
+	@media screen and (min-width: $width-screen-desktop) {
+		width: calc(282px - 2 * 20px);
+
+		margin-bottom: 29px;
+
+		&:nth-child(2n + 1) {
+			margin-right: 29px;
+		}
+
+		&:nth-child(2n) {
+			margin-right: 29px;
+		}
+
+		&:nth-child(3n) {
+			margin-right: 0px;
 		}
 	}
 }
@@ -95,4 +121,8 @@
 	width: 120px;
 
 	margin-top: 30px;
+
+	@media screen and (min-width: $width-screen-tablet) {
+		margin-top: 21px;
+	}
 }
