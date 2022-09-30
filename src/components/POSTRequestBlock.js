@@ -12,6 +12,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	const [possibilityOfSending, setPossibilityOfSending] = useState({ name: false, email: false, phone: false, photo: false });
 	const [positionsList, setPositionsList] = useState([]);
 	const [photoName, setPhotoName] = useState("Upload your photo");
+	const [extension, setExtension] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const { register, handleSubmit, watch } = useForm();
@@ -263,8 +264,14 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	// Changes photo name
 	function changePhotoName() {
 		setPhotoName(watch("photo")[0]?.name);
+		setExtension("");
 
-		if (watch("photo")?.[0]?.name === undefined) setPhotoName("Upload your photo");
+		if (watch("photo")[0]?.name.length > 37) setExtension(`... .${watch("photo")[0]?.name.match(/\.([^.]+)$/)[1]}`);
+
+		if (watch("photo")?.[0]?.name === undefined) {
+			setPhotoName("Upload your photo");
+			setExtension("");
+		}
 	}
 
 	// Photo field controller
@@ -383,7 +390,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					</div>
 
 					{/*
-						Upload image
+						Upload photo
 					*/}
 					<div className="user-form__photo-block">
 						<input className="user-form__upload-photo" type="file" id="userPhoto" placeholder="Upload your photo" {...register("photo")} onBlur={photoFieldController} />
@@ -392,7 +399,10 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 							Upload
 						</label>
 
-						<input className={uploadFieldStyle()} value={photoName} type="text" readOnly />
+						<div className={uploadFieldStyle()}>
+							{photoName}
+							{extension && <span className="user-form__photo-extension">{extension}</span>}
+						</div>
 
 						<span className={errorStyle("photo")} ref={photoError} />
 					</div>
