@@ -56,6 +56,7 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 							className="get-block-user-avatar"
 							src={user?.photo !== "https://frontend-test-assignment-api.abz.agency/images/placeholders/placeholder.png" ? user?.photo : photoCover || photoCover}
 							alt={user?.name}
+							loading="lazy"
 						/>
 						<p className="get-block__user-name">{user?.name || "No name"}</p>
 						<p className="get-block__user-position">{user?.position || "No position"}</p>
