@@ -3,7 +3,7 @@ import { goToForm } from "../js/anchor-crossing";
 
 export default function Hero() {
 	return (
-		<div className="hero">
+		<section className="hero">
 			<div className="hero__text">
 				<h1>Test assignment for front-end developer</h1>
 
@@ -16,6 +16,6 @@ export default function Hero() {
 			<button className="button hero__button" type="button" onClick={goToForm}>
 				Sing up
 			</button>
-		</div>
+		</section>
 	);
 }

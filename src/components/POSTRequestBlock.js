@@ -334,7 +334,7 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 	}
 
 	return (
-		<div className="post-block" id="sing-up">
+		<section className="post-block" id="sing-up">
 			<h1>Working with POST request</h1>
 
 			{newUser && (
@@ -430,6 +430,6 @@ export default function POSTRequestBlock({ setUsers, setPage }) {
 					<img className="user-registered__image" src={successImage} alt="Successfully registered" />
 				</div>
 			)}
-		</div>
+		</section>
 	);
 }

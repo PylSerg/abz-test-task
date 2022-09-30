@@ -46,7 +46,7 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 	}
 
 	return (
-		<div className="get-block" id="users">
+		<section className="get-block" id="users">
 			<h1>Working with GET request</h1>
 
 			<ul className="get-block__users-list">
@@ -74,6 +74,6 @@ export default function GETRequestBlock({ users, page, setUsers, setPage }) {
 			<button className={buttonStyle()} type="button" onClick={nextPage}>
 				Show more
 			</button>
-		</div>
+		</section>
 	);
 }
