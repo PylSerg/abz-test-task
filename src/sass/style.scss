@@ -34,6 +34,15 @@ p {
 	padding: 0;
 }
 
+// Content
+.content-block {
+	@media screen and (min-width: $width-screen-desktop-2k) {
+		width: 1170px;
+
+		margin: 0 auto;
+	}
+}
+
 // Buttons
 .button {
 	width: 100px;

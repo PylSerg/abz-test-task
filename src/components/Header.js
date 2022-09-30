@@ -7,17 +7,19 @@ export default function Heder() {
 		<div className="header">
 			<div className="header__rectangle"></div>
 
-			<div className="header__main">
-				<img className="header__logo" src={logo} alt="Logo" />
+			<div className="header__block">
+				<div className="header__navigation">
+					<img className="header__logo" src={logo} alt="Logo" />
 
-				<div className="header__buttons-block">
-					<button className="button header__button" type="button" onClick={goToUsers}>
-						Users
-					</button>
+					<div className="header__buttons-block">
+						<button className="button header__button" type="button" onClick={goToUsers}>
+							Users
+						</button>
 
-					<button className="button header__button" type="button" onClick={goToForm}>
-						Sing up
-					</button>
+						<button className="button header__button" type="button" onClick={goToForm}>
+							Sing up
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

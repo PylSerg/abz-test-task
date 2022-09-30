@@ -13,9 +13,11 @@ export default function App() {
 	return (
 		<>
 			<Header />
-			<Hero />
-			<GETRequestBlock users={users} page={page} setUsers={setUsers} setPage={setPage} />
-			<POSTRequestBlock setUsers={setUsers} setPage={setPage} />
+			<div className="content-block">
+				<Hero />
+				<GETRequestBlock users={users} page={page} setUsers={setUsers} setPage={setPage} />
+				<POSTRequestBlock setUsers={setUsers} setPage={setPage} />
+			</div>
 		</>
 	);
 }

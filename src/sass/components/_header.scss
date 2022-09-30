@@ -10,7 +10,11 @@
 	background-color: #000;
 }
 
-.header__main {
+.header__block {
+	background-color: #fff;
+}
+
+.header__navigation {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -18,9 +22,8 @@
 
 	height: 60px;
 
+	margin: 0 auto;
 	padding: 0 16px;
-
-	background-color: #fff;
 
 	@media screen and (min-width: $width-screen-tablet) {
 		padding: 0 32px;
@@ -28,6 +31,12 @@
 
 	@media screen and (min-width: $width-screen-desktop) {
 		padding: 0 60px;
+	}
+
+	@media screen and (min-width: $width-screen-desktop-2k) {
+		width: 1170px;
+
+		padding: 0;
 	}
 }
 
